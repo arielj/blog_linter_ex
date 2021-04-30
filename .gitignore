@@ -8,3 +8,5 @@ erl_crash.dump
 *.beam
 /config/*.secret.exs
 .elixir_ls/
+blog_linter-*.tar
+/tmp

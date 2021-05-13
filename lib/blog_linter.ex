@@ -21,6 +21,10 @@ defmodule BlogLinter do
   def process_path(path) do
     file_names(path) # ["post1.markdown", "post2.markdown"]
     |> Enum.map(fn filename -> process_file(path, filename) end)
+
+    # TODO: the last function will produce a list of {filename, list_of_errors}
+    # we have to process that list, display errors if any and change the exit
+    # code of the script
   end
 
   def process_file(path, filename) do
@@ -53,6 +57,7 @@ defmodule BlogLinter do
   def check_layout(errors, %{layout: "post"}), do: errors
   def check_layout(errors, _), do: ["Layout must be post" | errors]
 
+  # TODO: add doc tests here
   def check_author(errors, %{author: author}) when is_binary(author) and author != "" do
     errors
   end

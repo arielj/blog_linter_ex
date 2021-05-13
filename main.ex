@@ -1,1 +1,1 @@
-IO.inspect BlogLinter.file_names("./blogposts")
+IO.inspect BlogLinter.process_path("./blogposts")

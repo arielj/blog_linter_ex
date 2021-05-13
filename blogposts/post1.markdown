@@ -1,9 +1,10 @@
 ---
-layout: post
+layout: 
 title: "Webpack VS Sprockets"
 date: 2020-12-23 14:00:00
 categories: ["learning", "webpack"]
 author: arieljuod
+image: ...
 ---
 
 Since the release of Rails 6, **Webpack** is the default JavaScript bundler for new Rails apps. We all struggled at first coming from a **Sprockets** background, and more often than not, we, as Rails developers, tried to avoid making JavaScript changes so we wouldn't have to deal with it.

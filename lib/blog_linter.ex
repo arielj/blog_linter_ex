@@ -39,29 +39,37 @@ defmodule BlogLinter do
 
     []
     |> check_layout(metadata)
-    # |> check_authors(metadata)
+    |> check_author(metadata)
   end
 
   def extract_metadata(content) do
-    # TODO: extract the `--- ... ---` section of the file and parse it as a Map
+    metadata_string =
+      hd(hd(Regex.scan(~r/---.*---/s, content)))
+      |> String.replace(~r/\n?---\n?/, "")
+
+
+    case YamlElixir.read_from_string(metadata_string) do
+      {:ok, yaml_map} -> yaml_map
+    end
   end
 
+  @spec check_layout(any, any) :: any
   @doc """
-      iex> BlogLinter.check_layout([], %{layout: "post", author: ""})
+      iex> BlogLinter.check_layout([], %{"layout" => "post", author: ""})
       []
-      iex> BlogLinter.check_layout([], %{layout: "landing", author: ""})
+      iex> BlogLinter.check_layout([], %{"layout" => "landing", author: ""})
       ["Layout must be post"]
       iex> BlogLinter.check_layout([], %{})
       ["Layout must be post"]
   """
-  def check_layout(errors, %{layout: "post"}), do: errors
+  def check_layout(errors, %{"layout" => "post"}), do: errors
   def check_layout(errors, _), do: ["Layout must be post" | errors]
 
   # TODO: add doc tests here
-  def check_author(errors, %{author: author}) when is_binary(author) and author != "" do
+  def check_author(errors, %{"author" => author}) when is_binary(author) and author != "" do
     errors
   end
-  def check_author(errors, %{author: _}), do: ["Author must be present" | errors]
+  def check_author(errors, %{"author" => _}), do: ["Author must be present" | errors]
 
   # TODO: Validate `authors` key
   # def check_author(errors, %{authors: authors}) when valid_authors(authors) do

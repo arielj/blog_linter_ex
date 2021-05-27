@@ -3,7 +3,7 @@ layout:
 title: "Webpack VS Sprockets"
 date: 2020-12-23 14:00:00
 categories: ["learning", "webpack"]
-author: arieljuod
+author: 
 image: ...
 ---
 

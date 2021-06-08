@@ -76,5 +76,17 @@ defmodule BlogLinter do
   #   errors
   # end
 
+  @doc """
+      iex> BlogLinter.valid_authors(["José Valim", "Joe Armstrong"])
+      true
+      iex> BlogLinter.valid_authors([])
+      false
+  """
+  def valid_authors([author|[]]), do: true
+  def valid_authors([author|authors]) when is_binary(author) do
+    valid_authors(authors)
+  end
+  def valid_authors(x), do: false
+
   # TODO: add a generic check_author function to catch if both author and authors keys are missing
 end

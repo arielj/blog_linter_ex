@@ -65,7 +65,12 @@ defmodule BlogLinter do
   def check_layout(errors, %{"layout" => "post"}), do: errors
   def check_layout(errors, _), do: ["Layout must be post" | errors]
 
-  # TODO: add doc tests here
+  @doc """
+      iex> BlogLinter.check_author(["errors"], %{"author" => "José Valim"})
+      ["errors"]
+      iex> BlogLinter.check_author([], %{"author" => ""})
+      ["Author must be present"]
+  """
   def check_author(errors, %{"author" => author}) when is_binary(author) and author != "" do
     errors
   end
@@ -75,6 +80,18 @@ defmodule BlogLinter do
   # def check_author(errors, %{authors: authors}) when valid_authors(authors) do
   #   errors
   # end
+
+  @doc """
+      iex> BlogLinter.valid_authors(["José Valim", "Joe Armstrong"])
+      true
+      iex> BlogLinter.valid_authors([])
+      false
+  """
+  def valid_authors([author|[]]), do: true
+  def valid_authors([author|authors]) when is_binary(author) do
+    valid_authors(authors)
+  end
+  def valid_authors(x), do: false
 
   # TODO: add a generic check_author function to catch if both author and authors keys are missing
 end

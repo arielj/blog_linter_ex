@@ -65,7 +65,12 @@ defmodule BlogLinter do
   def check_layout(errors, %{"layout" => "post"}), do: errors
   def check_layout(errors, _), do: ["Layout must be post" | errors]
 
-  # TODO: add doc tests here
+  @doc """
+      iex> BlogLinter.check_author(["errors"], %{"author" => "José Valim"})
+      ["errors"]
+      iex> BlogLinter.check_author([], %{"author" => ""})
+      ["Author must be present"]
+  """
   def check_author(errors, %{"author" => author}) when is_binary(author) and author != "" do
     errors
   end
